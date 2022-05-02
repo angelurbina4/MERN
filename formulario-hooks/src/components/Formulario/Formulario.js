@@ -3,10 +3,45 @@ import React, {useState} from "react";
 const Formulario = () => {
 
     const [first_name, setFirst_name] = useState("");
+    const [first_name_error, setFirst_name_error] = useState("");
+
     const [last_name, setLast_name] = useState("");
+    const [last_name_error, setLast_name_error] = useState("");
+
     const [email, setEmail] = useState("");
+    const [email_error, setEmail_error] = useState("");
+
     const [password, setPassword] = useState("");
+    const [password_error, setPassword_error] = useState("");
+
     const [confirm_password, setConfirm_password] = useState("");
+    const [confirm_password_error, setConfirm_password_error] = useState("");
+
+    const handleFirst_name = (e) => {
+        setFirst_name(e.target.value);
+        e.target.value.length < 2 ? setFirst_name_error("The name must have at least two characters"): setFirst_name_error("");
+    }
+
+    const handleLast_name = (e) => {
+        setLast_name(e.target.value);
+        e.target.value.length < 2 ? setLast_name_error("The last name must have at least two characters") : setLast_name_error("");
+    }
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+        e.target.value.length < 5 ? setEmail_error("The email must have at least five characters") : setEmail_error("");
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+        e.target.value.length < 8 ? setPassword_error("The email must have at least eight characters") : setPassword_error("");
+    }
+
+    const handleConfirm_password = (e) => {
+        setConfirm_password(e.target.value);
+        password !== e.target.value ? setConfirm_password_error("Passwords don't match") : setConfirm_password_error("");
+    }
+
 
     const createUser = (e) => {
         e.preventDefault();
@@ -19,24 +54,49 @@ const Formulario = () => {
             <h2>Crear Usuario</h2>
             <div className="form-group">
                 <label htmlFor="nombre">First Name:</label>
-                <input className="form-control" onChange={ (e) => setFirst_name(e.target.value) } value={first_name}/>
+                <input className="form-control" onChange={ handleFirst_name } value={first_name}/>
+                {
+                    first_name_error ?
+                    <p style={{color: 'red'}}>{first_name_error}</p> :
+                    ""
+                }
             </div>
             <div className="form-group">
                 <label>Last name: </label>
-                <input className="form-control" onChange={ (e) => setLast_name( e.target.value) }  value={last_name} />
+                <input className="form-control" onChange={ handleLast_name }  value={last_name} />
             </div>
+            {
+                last_name_error ?
+                <p style={{color: 'red'}}>{last_name_error}</p> :
+                ""
+            }
             <div className="form-group">
                 <label>Email:</label>
-                <input className="form-control" type={"email"} onChange={ (e) => setEmail( e.target.value) } value={email} />
+                <input className="form-control" type={"email"} onChange={ handleEmail } value={email} />
             </div>
+            {
+                email_error ?
+                <p style={{color: 'red'}}>{email_error}</p> :
+                ""
+            }
             <div className="form-group">
                 <label>Password:</label>
-                <input className="form-control" type={"password"} onChange={ (e) => setPassword( e.target.value) } value={password} />
+                <input className="form-control" type={"password"} onChange={ handlePassword } value={password} />
             </div>
+            {
+                password_error ?
+                <p style={{color: 'red'}}>{password_error}</p> :
+                ""
+            }
             <div className="form-group">
                 <label>Confirm Password:</label>
-                <input className="form-control" type={"password"} onChange={ (e) => setConfirm_password( e.target.value) } value={confirm_password} />
+                <input className="form-control" type={"password"} onChange={ handleConfirm_password } value={confirm_password} />
             </div>
+            {
+                confirm_password_error ?
+                <p style={{color: 'red'}}>{confirm_password_error}</p> :
+                ""
+            }
             <input type={"submit"} className="btn btn-success" value="Crear Usuario"/>
         </form>
         <br/>
